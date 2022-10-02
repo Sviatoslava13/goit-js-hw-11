@@ -21,6 +21,7 @@ let searchQuery = '';
 function moreCrads() {
   page += 1;
   getUser(searchQuery, page).then(markingCard);
+
 }
 
 function onFormSubmit(e) {
@@ -36,6 +37,8 @@ function onFormSubmit(e) {
 function markingCard(data) {
   const imgArr = data.hits;
   const imgHits = data.totalHits;
+  let arr = imgArr.length;
+  console.log(arr);
   const makrup = imgArr
     .map(
       ({
@@ -77,35 +80,23 @@ function markingCard(data) {
   }
   if (page === 1) {
     Notify.info(`Hooray! We found ${imgHits} images.`);
+    return;
   }
+  if (imgArr.length > 0) {
+      moreBtn.classList.add('is-hidden');
+  
+  } else{
+    
+    moreBtn.classList.remove('is-hidden');
+   Notify.info("We're sorry, but you've reached the end of search results.")
+  }
+
 }
 function clearCards() {
   page = 1;
   divContainer.innerHTML = '';
+moreBtn.classList.remove('is-hidden');
 
 }
-/*  if (page > imgHits) {
-    Notify.info(  "We're sorry, but you've reached the end of search results.")
-  }
-  if (data.hits.length === 0) {
- return Notify.failure('Sorry, there are no images matching your search query. Please try again.');
-  }
-  */
-/* if (imgArr) {
-    moreBtn.classList.remove('is-hidden');
-  } else if (imgHits) {
-   moreBtn.classList.add('is-hidden');
-   Notify.info("We're sorry, but you've reached the end of search results.")
-  
-  } 
- 
- 
- 
- if (imgHits) {
-    moreBtn.classList.remove('is-hidden');
-  } else {
-    moreBtn.classList.add('is-hidden');
 
-  }
-  
-*/
+//if (imgArr.length === 0)
