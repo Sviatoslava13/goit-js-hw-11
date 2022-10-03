@@ -24,7 +24,8 @@ function moreCrads() {
 function onFormSubmit(e) {
   e.preventDefault();
   searchQuery = e.target.elements.searchQuery.value.trim().toLowerCase();
-    clearCards();
+  clearCards();
+    pageHits = 0;
   if (!searchQuery) {
     return Notify.failure('Write more correctly');
   }
@@ -32,11 +33,10 @@ function onFormSubmit(e) {
 
 }
 
-
-
 function markingCard(data) {
   const imgArr = data.hits;
   const imgHits = data.totalHits;
+  console.log(imgHits);
   const makrup = imgArr
     .map(
       ({
@@ -71,12 +71,13 @@ function markingCard(data) {
   divContainer.insertAdjacentHTML('beforeend', makrup);
   new SimpleLightbox('.photo-card a', {captionsData: 'alt', captionDelay: 250 });
   pageHits += imgArr.length;
+ console.log(pageHits);
   if (imgArr.length === 0) {
  return Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.',
     );
   }
- if (imgHits <= pageHits || pageHits === page ) {
+ if (imgHits <= pageHits ) {
     moreBtn.classList.add('is-hidden'); 
     Notify.info("We're sorry, but you've reached the end of search results.")
   }
@@ -86,6 +87,7 @@ function markingCard(data) {
 }
 function clearCards() {
   page = 1;
+
   divContainer.innerHTML = '';
  moreBtn.classList.remove('is-hidden');
 }
