@@ -5,19 +5,17 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import './css/style.css';
 const ref = {
   form: document.querySelector('#search-form'),
-  input: document.querySelector('input'),
-  submitBtn: document.querySelector('button'),
   moreBtn: document.querySelector('.load-more'),
   divContainer: document.querySelector('.gallery'),
 };
-const { form, input, submitBtn, moreBtn, divContainer } = ref;
+const { form,  moreBtn, divContainer } = ref;
 
 form.addEventListener('submit', onFormSubmit);
 moreBtn.addEventListener('click', moreCrads);
 
 let page = 1;
 let searchQuery = '';
-
+let pageHits = 0;
 function moreCrads() {
   page += 1;
   getUser(searchQuery, page).then(markingCard);
@@ -27,6 +25,7 @@ function moreCrads() {
 function onFormSubmit(e) {
   e.preventDefault();
   searchQuery = e.target.elements.searchQuery.value;
+  
   if (!searchQuery) {
     return Notify.failure('Write more correctly');
   }
@@ -34,11 +33,11 @@ function onFormSubmit(e) {
   clearCards();
 }
 
+
+
 function markingCard(data) {
   const imgArr = data.hits;
   const imgHits = data.totalHits;
-  let arr = imgArr.length;
-  console.log(arr);
   const makrup = imgArr
     .map(
       ({
@@ -71,32 +70,23 @@ function markingCard(data) {
     )
     .join('');
   divContainer.insertAdjacentHTML('beforeend', makrup);
-  new SimpleLightbox('.photo-card a');
-  if (!imgHits) {
-    Notify.failure(
+  new SimpleLightbox('.photo-card a', {captionsData: 'alt', captionDelay: 250 });
+  pageHits += imgArr.length;
+  if (imgArr.length === 0) {
+ return Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.',
     );
-    return;
+  }
+ if (imgHits <= pageHits || pageHits === page ) {
+    moreBtn.classList.add('is-hidden'); 
+    Notify.info("We're sorry, but you've reached the end of search results.")
   }
   if (page === 1) {
-    Notify.info(`Hooray! We found ${imgHits} images.`);
-    return;
+   return Notify.info(`Hooray! We found ${imgHits} images.`); 
   }
-  if (imgArr.length > 0) {
-      moreBtn.classList.add('is-hidden');
-  
-  } else{
-    
-    moreBtn.classList.remove('is-hidden');
-   Notify.info("We're sorry, but you've reached the end of search results.")
-  }
-
 }
 function clearCards() {
   page = 1;
   divContainer.innerHTML = '';
-moreBtn.classList.remove('is-hidden');
-
+ moreBtn.classList.remove('is-hidden');
 }
-
-//if (imgArr.length === 0)

@@ -1,77 +1,76 @@
-body{
+body {
     margin: 0;
 }
-p{
+
+p {
     margin-top: 0;
 }
-.is-hidden{
-    
-            position: absolute;
-            white-space: nowrap;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-            border: 0;
-            padding: 0;
-            clip: rect(0 0 0 0);
-            clip-path: inset(50%);
-            margin: -1px;
-        }
 
-.search-form{
-        background-color: steelblue;
-            text-align: center;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            align-content: center;
-            justify-content: center;
-            position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-        
+.load-more.is-hidden {
+    display: none;
 }
- input{
-height: 30px;
-    width: 300px;
-       
- }     
-button {
-        height: 35px;
-            width: 60px;
-                border: 0;
-}       
-.load-more{
-    margin-top: 20px;
-        margin-left: auto;
-            margin-right: auto;
-            display: block;
-            width: 150px;
-            background-color: rgba(0, 0, 255, 0.382);
-       
-} 
-img{
-    display: block;
-       width: 360px;
-       height: 280px;
-    
-}
-.gallery{
-display: flex;
+
+.search-form {
+    background-color: steelblue;
+    text-align: center;
+    height: 60px;
+    display: flex;
     align-items: center;
-        justify-content: center;
+    align-content: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+}
+
+input {
+    height: 30px;
+    width: 300px;
+
+}
+
+button {
+    height: 35px;
+    width: 60px;
+    border: 0;
+}
+
+.load-more {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 150px;
+    background-color: rgba(0, 0, 255, 0.382);
+
+}
+
+img {
+    display: block;
+    width: 360px;
+    height: 280px;
+
+}
+
+.gallery {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
 }
-.photo-card{
-margin-bottom: 10px;
+
+.photo-card {
+    margin-bottom: 10px;
     width: 360px;
-margin-right: 20px;
+    margin-right: 20px;
     box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
 
- 
+
 }
-.info{
-padding:  15px
+
+.info {
+    padding: 15px
 }
