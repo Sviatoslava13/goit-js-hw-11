@@ -19,18 +19,17 @@ let pageHits = 0;
 function moreCrads() {
   page += 1;
   getUser(searchQuery, page).then(markingCard);
-
 }
 
 function onFormSubmit(e) {
   e.preventDefault();
-  searchQuery = e.target.elements.searchQuery.value;
-  
+  searchQuery = e.target.elements.searchQuery.value.trim().toLowerCase();
+    clearCards();
   if (!searchQuery) {
     return Notify.failure('Write more correctly');
   }
   getUser(searchQuery, page).then(markingCard);
-  clearCards();
+
 }
 
 
