@@ -24,11 +24,12 @@ function moreCrads() {
 function onFormSubmit(e) {
   e.preventDefault();
   searchQuery = e.target.elements.searchQuery.value.trim().toLowerCase();
-  clearCards();
+ 
     pageHits = 0;
   if (!searchQuery) {
     return Notify.failure('Write more correctly');
   }
+   clearCards();
   getUser(searchQuery, page).then(markingCard);
 
 }
