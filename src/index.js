@@ -24,12 +24,13 @@ function moreCrads() {
 function onFormSubmit(e) {
   e.preventDefault();
   searchQuery = e.target.elements.searchQuery.value.trim().toLowerCase();
- 
-    pageHits = 0;
-  if (!searchQuery) {
+    if (!searchQuery) {
     return Notify.failure('Write more correctly');
   }
    clearCards();
+    pageHits = 0;
+
+ 
   getUser(searchQuery, page).then(markingCard);
 
 }
@@ -71,10 +72,13 @@ function markingCard(data) {
   divContainer.insertAdjacentHTML('beforeend', makrup);
   new SimpleLightbox('.photo-card a', {captionsData: 'alt', captionDelay: 250 });
   pageHits += imgArr.length;
+
   if (imgArr.length === 0) {
+  moreBtn.classList.add('is-hidden'); 
  return Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.',
     );
+        
   }
  if (imgHits <= pageHits ) {
     moreBtn.classList.add('is-hidden'); 
