@@ -16,6 +16,7 @@ moreBtn.addEventListener('click', moreCrads);
 let page = 1;
 let searchQuery = '';
 let pageHits = 0;
+let totalPage = 0;
 function moreCrads() {
   page += 1;
   getUser(searchQuery, page).then(markingCard);
@@ -31,8 +32,7 @@ function onFormSubmit(e) {
     pageHits = 0;
 
  
-  getUser(searchQuery, page).then(markingCard);
-
+  getUser(searchQuery, page).then(markingCard)
 }
 
 function markingCard(data) {
@@ -70,16 +70,15 @@ function markingCard(data) {
     )
     .join('');
   divContainer.insertAdjacentHTML('beforeend', makrup);
-  new SimpleLightbox('.photo-card a', {captionsData: 'alt', captionDelay: 250 });
-  pageHits += imgArr.length;
-
-  if (imgArr.length === 0) {
+    moreBtn.classList.remove('is-hidden'); 
+    if (imgArr.length === 0) {
   moreBtn.classList.add('is-hidden'); 
- return Notify.failure(
+Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.',
-    );
-        
+      );
+      return;
   }
+    pageHits += imgArr.length;
  if (imgHits <= pageHits ) {
     moreBtn.classList.add('is-hidden'); 
     Notify.info("We're sorry, but you've reached the end of search results.")
@@ -87,10 +86,10 @@ function markingCard(data) {
   if (page === 1) {
    return Notify.info(`Hooray! We found ${imgHits} images.`); 
   }
+    new SimpleLightbox('.photo-card a', {captionsData: 'alt', captionDelay: 250 });
 }
 function clearCards() {
   page = 1;
-
   divContainer.innerHTML = '';
- moreBtn.classList.remove('is-hidden');
+moreBtn.classList.add('is-hidden');
 }
